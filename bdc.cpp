@@ -1,16 +1,31 @@
 #include <iostream>
 #include <cmath>
+#include <cstdint>
+#include <cstring>
+#include <algorithm>
 
-int main(int argc, char* argv[]){
-    auto decimal = strtol(argv[1], nullptr, 10);
-    std::cout << decimal << "\n";
-    for (int i = log2(decimal); i >= 0; i--){
-        if ((decimal - pow(2, i)) >= 0){
-            std::cout << "1";
-            decimal -= pow(2, i);
-        }else{
-            std::cout << "0";
+void strrev(char* str){
+    int64_t len = strlen(str);
+    for (int right = len-1, left = 0; left <= right ; --right, ++left){
+        std::iter_swap(str+right, str+left);
         }
     }
-    std::cout << "\n";
+
+void binary_to_decimal(char* binary){
+    int counter = 0;
+    int64_t sum = 0;
+    while (*binary != '\0'){
+        if (*binary == '1'){
+            sum += pow(2, counter);
+        } 
+        counter++;
+        binary++;
+    }
+    std::cout << sum << "\n";
+}
+
+int main(int argc, char* argv[]){
+    strrev(argv[1]);
+    binary_to_decimal(argv[1]);
+    return 0;
 }
